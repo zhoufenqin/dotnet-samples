@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "createdAt": "2026-03-26T08:47:05.2251831Z",
+  "status": "in_progress",
+  "repos": [
+    {
+      "name": "dotnet-samples.Microsoft.Diagnostics.Tracing.EventSource",
+      "url": "https://github.com/zhoufenqin/dotnet-samples",
+      "clonePath": "C:\\Users\\fenzho\\code\\github\\test\\.github\\modernize\\repos-20260326164645\\dotnet-samples\\Microsoft.Diagnostics.Tracing\\EventSource",
+      "statusFileDirectory": "C:\\Users\\fenzho\\code\\github\\test\\.github\\modernize\\repos-20260326164645\\dotnet-samples\\.github\\modernize\\delegation\\Microsoft.Diagnostics.Tracing_EventSource",
+      "sessionId": "9c01c6e7-97df-4c26-8117-9760d929535a",
+      "detectedLanguage": "DotNet",
+      "relativePath": "Microsoft.Diagnostics.Tracing/EventSource"
+    }
+  ]
+}
