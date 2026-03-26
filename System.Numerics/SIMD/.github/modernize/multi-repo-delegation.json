@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "createdAt": "2026-03-26T03:16:03.9550842Z",
+  "status": "in_progress",
+  "repos": [
+    {
+      "name": "dotnet-samples.System.Numerics.SIMD",
+      "url": "https://github.com/zhoufenqin/dotnet-samples",
+      "clonePath": "C:\\Users\\fenzho\\code\\github\\test\\.github\\modernize\\repos-20260326111518\\dotnet-samples\\System.Numerics\\SIMD",
+      "statusFileDirectory": "C:\\Users\\fenzho\\code\\github\\test\\.github\\modernize\\repos-20260326111518\\dotnet-samples\\.github\\modernize\\delegation\\System.Numerics_SIMD",
+      "sessionId": "0ca99f7c-585c-4603-bd9f-2a88d291fa00",
+      "detectedLanguage": "DotNet",
+      "relativePath": "System.Numerics/SIMD"
+    }
+  ]
+}
