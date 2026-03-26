@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "createdAt": "2026-03-26T05:43:03.0677492Z",
+  "status": "in_progress",
+  "repos": [
+    {
+      "name": "dotnet-samples.WinForms-HDPI.PerMonitorAware",
+      "url": "https://github.com/zhoufenqin/dotnet-samples",
+      "clonePath": "C:\\Users\\fenzho\\code\\github\\test\\.github\\modernize\\repos-20260326134153\\dotnet-samples\\WinForms-HDPI\\PerMonitorAware",
+      "statusFileDirectory": "C:\\Users\\fenzho\\code\\github\\test\\.github\\modernize\\repos-20260326134153\\dotnet-samples\\.github\\modernize\\delegation\\WinForms-HDPI_PerMonitorAware",
+      "sessionId": "47ed84e8-dd46-4ec2-81dc-76b8cee8b9f0",
+      "detectedLanguage": "DotNet",
+      "relativePath": "WinForms-HDPI/PerMonitorAware"
+    }
+  ]
+}
