@@ -2,8 +2,8 @@
   "version": "1.0.0",
   "producer": ".NET AppCAT CLI",
   "metadata": {
-    "analysisStartTime": "2026-03-30T05:07:33.3722127Z",
-    "analysisEndTime": "2026-03-30T05:07:34.1585583Z",
+    "analysisStartTime": "2026-03-31T05:26:21.0234122Z",
+    "analysisEndTime": "2026-03-31T05:26:21.762669Z",
     "privacyMode": "Restricted",
     "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2271074",
     "targetIds": [
@@ -66,7 +66,7 @@
       "incidents": [
         {
           "ruleId": "Runtime.0001",
-          "incidentId": "10edda85-a3d3-4dad-98ba-be71cc24dd49",
+          "incidentId": "1cb81d95-e9d1-4e5a-a1cb-b1eeea2fde19",
           "location": "MdDumper.csproj",
           "locationKind": "File",
           "targets": {
@@ -107,7 +107,7 @@
         },
         {
           "ruleId": "Runtime.0002",
-          "incidentId": "65fe581c-c4fb-4320-8522-c48c46ec5a43",
+          "incidentId": "d87fbc18-338c-44b4-a2bb-32a2c6ca007c",
           "location": "MdDumper.csproj",
           "locationKind": "File",
           "targets": {
