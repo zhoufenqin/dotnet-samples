@@ -2,8 +2,8 @@
   "version": "1.0.0",
   "producer": ".NET AppCAT CLI",
   "metadata": {
-    "analysisStartTime": "2026-03-30T05:10:54.0308984Z",
-    "analysisEndTime": "2026-03-30T05:10:55.4043512Z",
+    "analysisStartTime": "2026-03-31T05:32:11.16954Z",
+    "analysisEndTime": "2026-03-31T05:32:12.6242079Z",
     "privacyMode": "Restricted",
     "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2271074",
     "targetIds": [
@@ -65,7 +65,7 @@
       "incidents": [
         {
           "ruleId": "Runtime.0002",
-          "incidentId": "e4a2ce5e-c3b6-4899-b078-df97bfcbcd12",
+          "incidentId": "9606441a-48f2-429d-bbc4-80367f99e833",
           "location": "HighDpiDemo.csproj",
           "locationKind": "File",
           "targets": {
