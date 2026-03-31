@@ -2,8 +2,8 @@
   "version": "1.0.0",
   "producer": ".NET AppCAT CLI",
   "metadata": {
-    "analysisStartTime": "2026-03-30T05:06:07.479154Z",
-    "analysisEndTime": "2026-03-30T05:06:08.920835Z",
+    "analysisStartTime": "2026-03-31T05:25:52.0013773Z",
+    "analysisEndTime": "2026-03-31T05:25:53.4712337Z",
     "privacyMode": "Restricted",
     "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2271074",
     "targetIds": [
@@ -65,7 +65,7 @@
       "incidents": [
         {
           "ruleId": "Runtime.0003",
-          "incidentId": "a9b6d48b-8cc2-46b1-bd7d-e0fe479b6e43",
+          "incidentId": "1adf67d4-1753-4cc3-b22e-32336fe3d1e5",
           "location": "Mandelbrot/Mandelbrot.csproj",
           "locationKind": "File",
           "targets": {
@@ -125,7 +125,7 @@
       "incidents": [
         {
           "ruleId": "Runtime.0003",
-          "incidentId": "916417e1-c88c-468f-b865-77448fd6cc90",
+          "incidentId": "9a7cee29-5a82-4a6e-a641-6cf555caa9c5",
           "location": "RayTracer/RayTracer.csproj",
           "locationKind": "File",
           "targets": {
