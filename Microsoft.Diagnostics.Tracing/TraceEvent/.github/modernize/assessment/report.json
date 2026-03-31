@@ -2,8 +2,8 @@
   "version": "1.0.0",
   "producer": ".NET AppCAT CLI",
   "metadata": {
-    "analysisStartTime": "2026-03-30T05:06:50.9411664Z",
-    "analysisEndTime": "2026-03-30T05:06:52.5576925Z",
+    "analysisStartTime": "2026-03-31T05:25:36.6763807Z",
+    "analysisEndTime": "2026-03-31T05:25:38.2547422Z",
     "privacyMode": "Restricted",
     "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2271074",
     "targetIds": [
@@ -65,7 +65,7 @@
       "incidents": [
         {
           "ruleId": "Runtime.0003",
-          "incidentId": "c1af91e6-fbcd-4391-829a-47859bb8733c",
+          "incidentId": "a386bf5f-9d58-4b22-91ad-a12f3d60a73c",
           "location": "TraceEvent/TraceEvent.csproj",
           "locationKind": "File",
           "targets": {
