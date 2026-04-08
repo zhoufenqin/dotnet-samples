@@ -17,7 +17,7 @@
         "passUnitTests": "true",
         "passIntegrationTests": "false"
       },
-      "status": "pending"
+      "status": "complete"
     },
     {
       "type": "upgrade",
@@ -34,7 +34,7 @@
         "passUnitTests": "true",
         "passIntegrationTests": "false"
       },
-      "status": "pending"
+      "status": "complete"
     }
   ],
   "metadata": {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Microsoft.Diagnostics.Tracing;
+using System.Diagnostics.Tracing;
 
 //
 // This demonstrates a typical event source definition with a some customization to enable
