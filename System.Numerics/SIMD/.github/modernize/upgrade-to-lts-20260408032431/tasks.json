@@ -1,0 +1,108 @@
+{
+  "$schema": "tasks-schema.json",
+  "description": ".NET version upgrade plan from .NET Framework 4.5 to .NET 10.0 (LTS) for System.Numerics.Vectors.SampleCode solution",
+  "tasks": [
+    {
+      "type": "upgrade",
+      "id": "001-upgrade-mandelbrot-sdk-style-and-tfm",
+      "description": "Convert Mandelbrot.csproj to SDK-style format and update target framework to net10.0-windows",
+      "reason": "The project uses legacy non-SDK-style .csproj format targeting net45. SDK-style conversion is required before the target framework can be updated to net10.0-windows.",
+      "requirements": "Convert Mandelbrot\\Mandelbrot.csproj to SDK-style using <Project Sdk=\"Microsoft.NET.Sdk\">. Set <TargetFramework>net10.0-windows</TargetFramework> and add <UseWPF>true</UseWPF>. Remove the System.Numerics.Vectors 1.1.5-beta PackageReference (functionality is now included in .NET runtime). Remove packages.config if present. Verify the project builds successfully with dotnet build Mandelbrot\\Mandelbrot.csproj.",
+      "environmentConfiguration": null,
+      "skills": [
+        { "name": "execute-modernization-task", "location": "project" }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "true",
+        "passIntegrationTests": "false"
+      },
+      "status": "pending"
+    },
+    {
+      "type": "upgrade",
+      "id": "002-upgrade-mandelbrot-fix-wpf-api-issues",
+      "description": "Fix WPF API binary-incompatible issues in Mandelbrot project (MainWindow.xaml.cs, App.xaml.cs, WPFHelpers.cs, FlyThru.xaml.cs)",
+      "reason": "The assessment found 143 Api.0001 (binary incompatible) issues across 4 files in the Mandelbrot project. The most significant change required is replacing the deprecated CompositionTarget.TransformToDevice DPI API with the modern VisualTreeHelper.GetDpi() API. All other WPF type usages should resolve after SDK-style conversion.",
+      "requirements": "Fix Mandelbrot\\MainWindow.xaml.cs lines 253-261: replace PresentationSource.FromVisual / CompositionTarget.TransformToDevice DPI detection with VisualTreeHelper.GetDpi(this). Old code: var ps = PresentationSource.FromVisual(this); var ct = ps.CompositionTarget; double dpiX = (double)ct.TransformToDevice.M11; double dpiY = (double)ct.TransformToDevice.M22; New code: var dpiInfo = VisualTreeHelper.GetDpi(this); double dpiX = dpiInfo.PixelsPerInchX; double dpiY = dpiInfo.PixelsPerInchY; Build and fix all remaining compiler errors in Mandelbrot\\MainWindow.xaml.cs, Mandelbrot\\App.xaml.cs, Mandelbrot\\WPFHelpers.cs, and Mandelbrot\\FlyThru.xaml.cs.",
+      "environmentConfiguration": null,
+      "skills": [
+        { "name": "execute-modernization-task", "location": "project" }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "true",
+        "passIntegrationTests": "false"
+      },
+      "status": "pending"
+    },
+    {
+      "type": "upgrade",
+      "id": "003-upgrade-raytracer-sdk-style-and-tfm",
+      "description": "Convert RayTracer.csproj to SDK-style format, update target framework to net10.0-windows, and add System.Drawing.Common package",
+      "reason": "The project uses legacy non-SDK-style .csproj targeting net45. RayTracer also uses System.Drawing.Bitmap GDI+ APIs which require the System.Drawing.Common NuGet package on .NET 10.",
+      "requirements": "Convert RayTracer\\RayTracer.csproj to SDK-style using <Project Sdk=\"Microsoft.NET.Sdk\">. Set <TargetFramework>net10.0-windows</TargetFramework> and add <UseWPF>true</UseWPF>. Remove the System.Numerics.Vectors 1.1.5-beta PackageReference (built into runtime). Add <PackageReference Include=\"System.Drawing.Common\" Version=\"11.0.0-preview.2.26159.112\" /> for GDI+ API support. Remove packages.config if present. Verify build with dotnet build RayTracer\\RayTracer.csproj.",
+      "environmentConfiguration": null,
+      "skills": [
+        { "name": "execute-modernization-task", "location": "project" }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "true",
+        "passIntegrationTests": "false"
+      },
+      "status": "pending"
+    },
+    {
+      "type": "upgrade",
+      "id": "004-upgrade-raytracer-fix-gdi-source-incompatible-issues",
+      "description": "Fix GDI+ source-incompatible API issues in RayTracer (Camera.cs, MainWindow.xaml.cs)",
+      "reason": "The assessment found 8 Api.0002 (source incompatible) issues in RayTracer\\Camera.cs and RayTracer\\MainWindow.xaml.cs related to System.Drawing.Bitmap and Bitmap.GetHbitmap. These require System.Drawing.Common package (added in Task 003) and a [SupportedOSPlatform(\"windows\")] annotation on the BitmapToSource method.",
+      "requirements": "In RayTracer\\MainWindow.xaml.cs: add [System.Runtime.Versioning.SupportedOSPlatform(\"windows\")] attribute to the BitmapToSource method (line 287) which calls Bitmap.GetHbitmap(). Confirm System.Drawing.Common package is referenced. Build and fix all remaining compiler errors in RayTracer\\Camera.cs (lines 101, 132, 160, 172 — Bitmap constructor and SetPixel calls) and RayTracer\\MainWindow.xaml.cs (lines 287, 289 — BitmapToSource method). All System.Drawing.Bitmap usages should compile once System.Drawing.Common is referenced.",
+      "environmentConfiguration": null,
+      "skills": [
+        { "name": "execute-modernization-task", "location": "project" }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "true",
+        "passIntegrationTests": "false"
+      },
+      "status": "pending"
+    },
+    {
+      "type": "upgrade",
+      "id": "005-upgrade-full-solution-build-validation",
+      "description": "Build and validate the entire System.Numerics.Vectors.SampleCode solution targeting net10.0-windows",
+      "reason": "Final validation to confirm both Mandelbrot and RayTracer projects build cleanly together after all upgrade tasks are complete.",
+      "requirements": "Run dotnet build on the full solution: dotnet build System.Numerics.Vectors.SampleCode.sln. Confirm zero build errors for both Mandelbrot and RayTracer projects. Both projects must target net10.0-windows. The System.Numerics.Vectors 1.1.5-beta package must be absent from both projects. RayTracer must reference System.Drawing.Common 11.0.0-preview.2.26159.112.",
+      "environmentConfiguration": null,
+      "skills": [
+        { "name": "execute-modernization-task", "location": "project" }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "true",
+        "passIntegrationTests": "false"
+      },
+      "status": "pending"
+    }
+  ],
+  "metadata": {
+    "planName": "upgrade-to-lts-20260408032431",
+    "projectName": "System.Numerics.Vectors.SampleCode",
+    "language": "dotnet",
+    "createdAt": "2026-04-08T03:24:37.772Z",
+    "version": "1.0"
+  }
+}
