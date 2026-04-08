@@ -1,0 +1,76 @@
+{
+  "reportConfigHash": "286e1697",
+  "createdAtUtc": "2026-04-08T03:21:35.6042897Z",
+  "entries": [
+    {
+      "packageName": "Microsoft.Diagnostics.Tracing.TraceEvent",
+      "packageVersion": "1.0.21",
+      "insightsName": "Microsoft.Diagnostics.Tracing.TraceEvent",
+      "insightsCurrentVersion": "1.0.21",
+      "insightsNewVersion": "3.2.1",
+      "insightsDescription": "NuGet package is incompatible",
+      "insightsIsCompatible": false,
+      "insightsProjects": [
+        "TraceEvent\\TraceEvent.csproj"
+      ]
+    },
+    {
+      "packageName": "Rx-Core",
+      "packageVersion": "2.1.30204.0",
+      "insightsName": "Rx-Core",
+      "insightsCurrentVersion": "2.1.30204.0",
+      "insightsNewVersion": "",
+      "insightsDescription": "NuGet package is incompatible",
+      "insightsIsCompatible": false,
+      "insightsProjects": [
+        "TraceEvent\\TraceEvent.csproj"
+      ]
+    },
+    {
+      "packageName": "Rx-Interfaces",
+      "packageVersion": "2.1.30204.0",
+      "insightsName": "Rx-Interfaces",
+      "insightsCurrentVersion": "2.1.30204.0",
+      "insightsNewVersion": "",
+      "insightsDescription": "NuGet package is incompatible",
+      "insightsIsCompatible": false,
+      "insightsProjects": [
+        "TraceEvent\\TraceEvent.csproj"
+      ]
+    },
+    {
+      "packageName": "Rx-Linq",
+      "packageVersion": "2.1.30204.0",
+      "insightsName": "Rx-Linq",
+      "insightsCurrentVersion": "2.1.30204.0",
+      "insightsNewVersion": "",
+      "insightsDescription": "NuGet package is incompatible",
+      "insightsIsCompatible": false,
+      "insightsProjects": [
+        "TraceEvent\\TraceEvent.csproj"
+      ]
+    },
+    {
+      "packageName": "Rx-Main",
+      "packageVersion": "2.1.30204.0",
+      "insightsName": "Rx-Main",
+      "insightsCurrentVersion": "2.1.30204.0",
+      "insightsNewVersion": "",
+      "insightsDescription": "",
+      "insightsIsCompatible": true,
+      "insightsProjects": []
+    },
+    {
+      "packageName": "Rx-PlatformServices",
+      "packageVersion": "2.1.30204.0",
+      "insightsName": "Rx-PlatformServices",
+      "insightsCurrentVersion": "2.1.30204.0",
+      "insightsNewVersion": "",
+      "insightsDescription": "NuGet package is incompatible",
+      "insightsIsCompatible": false,
+      "insightsProjects": [
+        "TraceEvent\\TraceEvent.csproj"
+      ]
+    }
+  ]
+}

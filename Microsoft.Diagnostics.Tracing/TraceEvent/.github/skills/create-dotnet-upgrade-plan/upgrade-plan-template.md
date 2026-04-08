@@ -24,9 +24,7 @@
       "successCriteria": {
         "passBuild": "true",
         "generateNewUnitTests": "false",
-        "generateNewIntegrationTests": "false",
         "passUnitTests": "true",
-        "passIntegrationTests": "false",
         "securityComplianceCheck": "false"
       },
       "status": "pending"
@@ -41,9 +39,7 @@
       "successCriteria": {
         "passBuild": "false",
         "generateNewUnitTests": "false",
-        "generateNewIntegrationTests": "false",
         "passUnitTests": "false",
-        "passIntegrationTests": "false",
         "securityComplianceCheck": "true"
       },
       "status": "pending"

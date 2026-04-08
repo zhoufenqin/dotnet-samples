@@ -21,6 +21,7 @@
         "oneOf": [
           { "$ref": "#/$defs/transformTask" },
           { "$ref": "#/$defs/upgradeTask" },
+          { "$ref": "#/$defs/integrationTestTask" },
           { "$ref": "#/$defs/containerizationTask" },
           { "$ref": "#/$defs/deploymentTask" },
           { "$ref": "#/$defs/securityTask" },
@@ -126,9 +127,7 @@
       "required": [
         "passBuild",
         "generateNewUnitTests",
-        "generateNewIntegrationTests",
-        "passUnitTests",
-        "passIntegrationTests"
+        "passUnitTests"
       ],
       "description": "The task success criteria to validate after task execution.",
       "properties": {
@@ -142,20 +141,10 @@
           "default": "false",
           "description": "Create mock-based unit tests for newly added Azure integration code to ensure test coverage, use default value if user does not specify"
         },
-        "generateNewIntegrationTests": {
-          "type": ["string", "null"],
-          "default": "false",
-          "description": "Create integration tests for Azure service interactions. If Azure resources are provided: tests interact with actual services. If not: tests use mocked Azure SDK clients or test containers, use default value if user does not specify"
-        },
         "passUnitTests": {
           "type": ["string", "null"],
           "default": "true",
           "description": "All unit tests must pass; mock dependent Azure resources if not provided, use default value if user does not specify"
-        },
-        "passIntegrationTests": {
-          "type": ["string", "null"],
-          "default": "false",
-          "description": "Integration tests must pass when generated. With Azure resources: validates actual connectivity. Without: validates integration logic using mocked clients, use default value if user does not specify"
         }
       }
     },
@@ -172,17 +161,9 @@
           "type": ["string", "null"],
           "description": "Validation status of generateNewUnitTests criterion. true means passed, false means failed, null means not yet validated."
         },
-        "generateNewIntegrationTests": {
-          "type": ["string", "null"],
-          "description": "Validation status of generateNewIntegrationTests criterion. true means passed, false means failed, null means not yet validated."
-        },
         "passUnitTests": {
           "type": ["string", "null"],
           "description": "Validation status of passUnitTests criterion. true means passed, false means failed, null means not yet validated."
-        },
-        "passIntegrationTests": {
-          "type": ["string", "null"],
-          "description": "Validation status of passIntegrationTests criterion. true means passed, false means failed, null means not yet validated."
         }
       }
     },
@@ -281,6 +262,36 @@
         }
       ]
     },
+    "integrationTestTask": {
+      "allOf": [
+        { "$ref": "#/$defs/taskBase" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "skills", "layers"],
+          "properties": {
+            "type": {
+              "const": "integrationTest",
+              "description": "Integration test task template - Generate and run integration tests for migrated Azure services. Only include when user explicitly requests integration testing. This task runs after all transform/upgrade tasks but before containerization."
+            },
+            "skills": {
+              "type": "array",
+              "description": "The skill used for this task, must be 'integration-tests'",
+              "items": { "$ref": "#/$defs/skill" }
+            },
+            "layers": {
+              "type": "array",
+              "description": "[Array of test layers to execute, e.g., [1, 2] for Layer 1 (Local Integration with TestContainers) and Layer 2 (Smoke Tests)]",
+              "items": {
+                "type": "number",
+                "enum": [1, 2]
+              },
+              "minItems": 1
+            }
+          }
+        }
+      ]
+    },
     "securityTask": {
       "allOf": [
         { "$ref": "#/$defs/taskBase" },
@@ -298,7 +309,7 @@
               "description": "The skills that will be used for this task. e.g. 'validate-cves-and-fix'",
               "items": { "$ref": "#/$defs/skill" }
             },
-            "cveReportPath": {
+            "cveReport": {
               "type": ["string", "null"],
               "description": "Path to final-cve-report.json. Only has value after CVE checking is complete."
             },

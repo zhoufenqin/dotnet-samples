@@ -210,7 +210,7 @@ All of the following must be true:
 | Problem | Solution |
 |---------|----------|
 | `dnx` not found | Install .NET 10 SDK — `dnx` ships with it |
-| MCP server fails to start | Verify `dnx Microsoft.GitHubCopilot.AppModernization.Mcp --yes --prerelease` runs without errors |
+| MCP server fails to start | Verify `dnx Microsoft.GitHubCopilot.Modernization.Mcp@1.0.979-preview1 --yes` runs without errors |
 | No scenarios discovered | Ensure you are in a directory with a `.sln` or `.csproj` file |
 | SDK validation fails | Run `dotnet --list-sdks` and confirm .NET 10.0 is installed |
 | MCP tool returns error | Log the error, attempt recovery by calling `get_state` again |
