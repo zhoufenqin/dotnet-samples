@@ -1,0 +1,66 @@
+{
+  "$schema": "tasks-schema.json",
+  "description": ".NET version upgrade plan from .NET Framework 4.7 (net47) to .NET 10.0 (net10.0-windows)",
+  "tasks": [
+    {
+      "type": "upgrade",
+      "id": "001-upgrade-sdk-style-and-tfm",
+      "description": "Convert HighDpiDemo.csproj to SDK-style and update target framework to net10.0-windows",
+      "reason": "The project uses a legacy non-SDK-style project format targeting .NET Framework 4.7. SDK-style conversion is required before upgrading the target framework, and net10.0-windows is required for Windows Forms support on .NET 10.0.",
+      "requirements": "Convert HighDpiDemo.csproj to SDK-style format with Sdk=\"Microsoft.NET.Sdk\". Set TargetFramework to net10.0-windows and UseWindowsForms to true. Set OutputType to WinExe. Remove all explicit assembly references included in the framework. Remove explicit Compile, EmbeddedResource, and None items (SDK auto-includes). Preserve ApplicationManifest reference (app.manifest) and DPI-awareness settings. Add System.Drawing.Common NuGet package (latest stable) for GDI+/System.Drawing support. Add System.Configuration.ConfigurationManager NuGet package (latest stable) for legacy app.config support. Run dotnet restore to verify package resolution.",
+      "environmentConfiguration": null,
+      "skills": [
+        { "name": "sdk-style-conversion", "location": "builtin" }
+      ],
+      "successCriteria": {
+        "passBuild": "false",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "false",
+        "passIntegrationTests": "false"
+      },
+      "status": "pending"
+    },
+    {
+      "type": "upgrade",
+      "id": "002-upgrade-legacy-controls-migration",
+      "description": "Replace legacy Windows Forms controls removed from .NET Core/5+ in HighDpiDemo",
+      "reason": "Windows Forms legacy controls (StatusBar, DataGrid, ContextMenu, MainMenu, MenuItem, ToolBar) were removed from .NET Core and .NET 5+. The assessment identifies 102 occurrences across Designer and code-behind files that must be replaced with their modern equivalents.",
+      "requirements": "In MenuStripAndCheckedListBox.Designer.cs, MenuStripAndCheckedListBox.cs, Calendar.Designer.cs, and Calendar.cs: replace StatusBar with StatusStrip, DataGrid with DataGridView, ContextMenu with ContextMenuStrip, MainMenu with MenuStrip, MenuItem with ToolStripMenuItem, ToolBar with ToolStrip. Update all Designer files to use modern control constructors, properties, and event signatures. Update code-behind files to match updated control types. Preserve all existing UI behavior and functionality.",
+      "environmentConfiguration": null,
+      "skills": [],
+      "successCriteria": {
+        "passBuild": "false",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "false",
+        "passIntegrationTests": "false"
+      },
+      "status": "pending"
+    },
+    {
+      "type": "upgrade",
+      "id": "003-upgrade-build-and-fix",
+      "description": "Build HighDpiDemo.sln and fix all remaining compilation errors after SDK conversion and legacy control migration",
+      "reason": "After SDK-style conversion and legacy control migration, source-incompatible APIs and any remaining issues must be resolved so the solution compiles cleanly on net10.0-windows.",
+      "requirements": "Run dotnet build on HighDpiDemo.sln. Fix all compilation errors in the affected files: Properties\\Settings.Designer.cs (2 source-incompatible APIs), MultipleScalingPasses.Designer.cs (9 source-incompatible APIs), MenuStripAndCheckedListBox.cs (9 source-incompatible APIs), MainForm.cs (2 source-incompatible APIs), Calendar.Designer.cs (18 source-incompatible APIs), Calendar.cs (no additional issues expected after legacy control migration). System.Drawing.Font, FontStyle, and GraphicsUnit issues are resolved by the System.Drawing.Common package added in task 001. App.config / Settings issues are resolved by System.Configuration.ConfigurationManager added in task 001. Build must complete with 0 errors.",
+      "environmentConfiguration": null,
+      "skills": [],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "true",
+        "passIntegrationTests": "false"
+      },
+      "status": "pending"
+    }
+  ],
+  "metadata": {
+    "planName": "upgrade-to-lts",
+    "projectName": "HighDpiDemo",
+    "language": "dotnet",
+    "createdAt": "2026-04-08T03:40:24.000Z",
+    "version": "1.0"
+  }
+}
