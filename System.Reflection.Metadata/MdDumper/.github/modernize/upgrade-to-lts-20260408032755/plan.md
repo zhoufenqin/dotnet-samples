@@ -64,6 +64,6 @@ Upgrade **MdDumper** from `netcoreapp2.2;net461` to `net10.0` (latest LTS).
 
 ## Success Criteria
 
-- [ ] `MdDumper.csproj` targets `net10.0`
-- [ ] `System.Reflection.Metadata` package reference removed
-- [ ] `dotnet build` succeeds with 0 errors
+- [x] `MdDumper.csproj` targets `net10.0`
+- [x] `System.Reflection.Metadata` package reference removed
+- [x] `dotnet build` succeeds with 0 errors
