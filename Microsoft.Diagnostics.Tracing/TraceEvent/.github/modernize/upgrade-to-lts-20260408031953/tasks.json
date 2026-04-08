@@ -1,0 +1,47 @@
+{
+  "$schema": "tasks-schema.json",
+  "description": ".NET version upgrade plan from .NET Framework 4.5 (net45) to .NET 10.0 (LTS)",
+  "tasks": [
+    {
+      "type": "upgrade",
+      "id": "001-upgrade-sdk-style-conversion",
+      "description": "Convert TraceEvent.csproj to SDK-style project format",
+      "reason": "The project uses a legacy non-SDK-style project format which is incompatible with modern .NET. SDK-style format is required before the target framework can be changed to net10.0.",
+      "requirements": "Convert TraceEvent\\TraceEvent.csproj from legacy non-SDK format to modern SDK-style format. Do NOT change the target framework during this step (keep net45). Remove packages.config and inline all package references into the .csproj. Verify the project builds successfully after conversion.",
+      "environmentConfiguration": null,
+      "skills": [{ "name": "sdk-style-conversion", "location": "builtin" }],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "false",
+        "passIntegrationTests": "false"
+      },
+      "status": "pending"
+    },
+    {
+      "type": "upgrade",
+      "id": "002-upgrade-target-framework-packages",
+      "description": "Upgrade TraceEvent.csproj target framework to net10.0 and update NuGet packages",
+      "reason": "The project must be upgraded from net45 to net10.0 (LTS). Several NuGet packages are incompatible with net10.0 and must be updated or removed.",
+      "requirements": "Change TargetFramework from net45 to net10.0 in TraceEvent\\TraceEvent.csproj. Upgrade Microsoft.Diagnostics.Tracing.TraceEvent from 1.0.21 to 3.2.1. Keep Rx-Main 2.1.30204.0 (compatible). Remove the following incompatible packages that have no net10.0-compatible version: Rx-Core 2.1.30204.0, Rx-Interfaces 2.1.30204.0, Rx-Linq 2.1.30204.0, Rx-PlatformServices 2.1.30204.0. Run dotnet restore. Build solution and fix all compilation errors in a single bounded pass until the solution builds with 0 errors.",
+      "environmentConfiguration": null,
+      "skills": [],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "false",
+        "passIntegrationTests": "false"
+      },
+      "status": "pending"
+    }
+  ],
+  "metadata": {
+    "planName": "upgrade-to-lts",
+    "projectName": "TraceEvent",
+    "language": "dotnet",
+    "createdAt": "2026-04-08T03:20:00.000Z",
+    "version": "1.0"
+  }
+}
