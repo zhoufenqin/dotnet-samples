@@ -285,6 +285,7 @@ namespace RayTracer
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         private static extern bool DeleteObject(IntPtr hObject);
 
+        [System.Runtime.Versioning.SupportedOSPlatform("windows")]
         private static BitmapSource BitmapToSource(Bitmap bitmap)
         {
             IntPtr hBitmap = bitmap.GetHbitmap();

@@ -251,15 +251,9 @@ namespace Mandelbrot
             double ch = (double)canvas.ActualHeight;
             if (cw < 1 || ch < 1)
                 return;
-            var ps = PresentationSource.FromVisual(this);
-            if (ps == null)
-                return;
-            var ct = ps.CompositionTarget;
-            if (ct == null)
-                return;
-            var mtrx = ct.TransformToDevice;
-            double dpiX = (double)mtrx.M11;
-            double dpiY = (double)mtrx.M22;
+            var dpiInfo = VisualTreeHelper.GetDpi(this);
+            double dpiX = dpiInfo.DpiScaleX;
+            double dpiY = dpiInfo.DpiScaleY;
             Task.Run(() => DrawMandelbrot((int)(cw * dpiX), (int)(ch * dpiY)));
         }
         private void Canvas_SizeChanged(object sender, SizeChangedEventArgs e)

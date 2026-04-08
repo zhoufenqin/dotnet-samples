@@ -19,7 +19,7 @@
         "passUnitTests": "true",
         "passIntegrationTests": "false"
       },
-      "status": "pending"
+      "status": "done"
     },
     {
       "type": "upgrade",
@@ -38,7 +38,7 @@
         "passUnitTests": "true",
         "passIntegrationTests": "false"
       },
-      "status": "pending"
+      "status": "done"
     },
     {
       "type": "upgrade",
@@ -57,7 +57,7 @@
         "passUnitTests": "true",
         "passIntegrationTests": "false"
       },
-      "status": "pending"
+      "status": "done"
     },
     {
       "type": "upgrade",
@@ -76,7 +76,7 @@
         "passUnitTests": "true",
         "passIntegrationTests": "false"
       },
-      "status": "pending"
+      "status": "done"
     },
     {
       "type": "upgrade",
@@ -95,7 +95,7 @@
         "passUnitTests": "true",
         "passIntegrationTests": "false"
       },
-      "status": "pending"
+      "status": "done"
     }
   ],
   "metadata": {
