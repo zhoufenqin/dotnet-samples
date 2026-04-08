@@ -1,112 +1,84 @@
 ---
 name: playbook-sync
-description: Generate or update modernization playbook from document sources
+description: Generate or update modernization playbook from document sources. Use this skill when the user wants to create a playbook, sync playbook from a document or GitHub issue, extract migration policies from architecture docs, or update existing playbook files with new decisions.
 ---
 
 # Playbook Sync
 
-This skill analyzes document content to generate a comprehensive modernization playbook with migration policies, code instructions, resource configurations, and migration patterns.
+Analyze source documents and generate a modernization playbook — three markdown files that capture an organization's approved migration targets, standards, and guardrails.
 
 ## User Input
 
-- output-path (Mandatory): The folder to save the playbook files
-- source-file-path (Mandatory): Path to the source file containing the document content
+- **output-path** (Mandatory): The folder to save the playbook files
+- **source-file-path** (Mandatory): Path to the source file containing the document content
+
+## Output Structure
+
+```
+${output-path}/
+├── targets.md       # Approved technologies and migration decisions
+├── standards.md     # Naming, security, and compliance rules
+└── guardrails.md    # Prohibited/required technologies and patterns
+```
 
 ## Principles
 
-- **No Hallucination**: Only include policies and content explicitly present in the source document. Do not invent, assume, or add information not found in the source.
-- **No Policy Inheritance**: Do not copy, inherit, or infer content from policy files, templates, or prior knowledge. Only use content explicitly present in ${source-file-path}.
-- **Concise Output**: Keep generated content concise and focused. Omit sections that have no corresponding content in the source rather than adding placeholder text.
-- **Source Fidelity**: If a policy category (e.g., Compliance Requirements, Rollback Strategy) is not mentioned in the source, do not include that section in the output.
-- **Incremental Updates**: If output files already exist, only update sections with new or changed content from the source file. Preserve all existing content that is not affected by the source changes.
-- **Direct Policy Output**: Output should contain only the truth and target record. Do not include reasons, rationale, or explanations behind policies—just state the policy itself.
+- **Source Fidelity**: The playbook is loaded and enforced by automated agents at runtime — a fabricated policy causes wrong migration decisions. Only include content explicitly present in ${source-file-path}. If a category isn't mentioned in the source, omit that section entirely rather than adding placeholders.
+- **Incremental Merge**: When output files already exist, merge at the **section level** — update sections with new or changed content, preserve unchanged sections verbatim. If the source explicitly removes or contradicts an existing entry, update that entry. Never drop existing content simply because the source is silent on it.
+- **Direct Policy Output**: State policies as-is. Do not include rationale, explanations, or implementation guidance — those belong elsewhere.
+
+## Classification Principles
+
+Each file serves a distinct purpose and is consumed at different stages of the modernization workflow:
+
+- **targets.md** — Approved framework versions, compute/data/integration services, and high-level source-to-target migration decisions. Loaded during assessment and plan creation.
+- **standards.md** — Resource naming conventions, tagging, authentication, secrets management, network security, encryption, and compliance framework requirements. Loaded during assessment, plan creation, and execution.
+- **guardrails.md** — Prohibited technologies and patterns (with approved alternatives), and required elements for every modernization. Loaded during assessment, plan creation, and execution.
 
 ## Workflow
 
-Given the user input, follow these steps:
+### Step 1: Read and Analyze Source
 
-1. **Read Source Content**
-   - Read the content from ${source-file-path}
-   - This file contains the playbook documentation from GitHub issues or markdown files
-   - Check if output files already exist in ${output-path}
-   - If existing files are found, read their current content for comparison
+1. Read ${source-file-path} (may be a GitHub issue export or markdown file)
+2. Check if output files already exist in ${output-path} — read them for merge comparison
+3. Classify each decision from the source into one of the three output files using the Classification Guide above
 
-2. **Analyze Content Structure**
-   - Identify sections related to:
-     - Migration policies and standards
-     - Code styles and best practices
-     - Azure landing zone
-     - Migration patterns with sample code
-     - Assessment criteria
+### Step 2: Generate Playbook Files
 
-3. **Generate modernization-policy.md**
-   - Extract migration policy information as defined in the playbook spec
-   - Look for content about:
-     - Approved Azure Services
-     - Service replacement patterns
-     - Prohibited Technologies (legacy app servers, outdated versions, vulnerable frameworks)
-     - Required Technologies (Java versions, Spring Boot, container images, standards)
-     - Security Requirements (authentication, encryption, Key Vault, network security)
-     - Compliance Requirements (SOC 2, PCI DSS, HIPAA, GDPR, SOX, Azure Policy)
-     - Deployment Standards (CI/CD pipelines, gates, strategies, environments)
-     - Rollback Strategy (triggers, procedures, communication, runbooks, testing)
-   - Use the template [modernization-policy](modernization-policy.md)
-   - If file exists: merge new content into existing file, preserving unchanged sections
-   - If file does not exist: create new file
-   - Save to ${output-path}/modernization-policy.md
-   - DO NOT include detailed code samples or configurations in this file - those belong in other files
+For each file, use the corresponding template as the structural reference, then fill in content extracted from the source.
 
-4. **Generate modernization-code-instruction.md**
-   - Extract code style, best practices, and security guidance
-   - Look for:
-     - Coding standards, conventions, samples
-  - **Important**: ONLY add content explicitly present in ${source-file-path}. Do not import or inherit any content from policy files.
-   - Use the template [code-instruction](modernization-code-instruction.md)
-   - If file exists: merge new content into existing file, preserving unchanged sections
-   - If file does not exist: create new file
-   - Save to ${output-path}/modernization-code-instruction.md
+#### targets.md
 
-5. **Generate azure-landing-zone.md**
-   - Extract Azure service configurations and resource information
-   - Look for:
-     - Azure resource configurations
-     - Landing zone information
-     - Network architecture, RBAC, Identity
-     - Resource naming conventions
-   - Use the template [azure-landing-zone](azure-landing-zone.md)
-   - If file exists: merge new content into existing file, preserving unchanged sections
-   - If file does not exist: create new file
-   - Save to ${output-path}/azure-landing-zone.md
+Use the template [targets-template](targets-template.md) for the required structure (5 sections):
+- Target Frameworks, Target Compute Services, Target Data Services, Target Integration Services, Migration Decisions
 
-6. **Generate assess-instruction.md**
-   - Extract criteria for assessment
-   - Look for:
-     - Assessment scoring criteria
-     - Classification rules
-     - Technical debt identification
-     - Complexity metrics
-     - Migration readiness indicators
-   - Use the template [assess-instruction](assess-instruction.md)
-   - If file exists: merge new content into existing file, preserving unchanged sections
-   - If file does not exist: create new file
-   - Save to ${output-path}/assess-instruction.md
+#### standards.md
 
-7. **Generate Migration Pattern Skills**
-   - If migration patterns with sample code or detailed guidance are found:
-     - Create a SKILL.md file in path: ${output-path}/skills/{migration-pattern-name}/SKILL.md
-   - Use the template [modernization-skill](modernization-skill.md) to generate SKILL.md
-   - If skill file exists: merge new content into existing file, preserving unchanged sections
-   - If skill file does not exist: create new file
-   - Example folder structure:
-     ```
-     skills/
-       pattern-cache-migration/
-         SKILL.md
-       pattern-database-migration.md
-     ```
+Use the template [standards-template](standards-template.md) for the required structure (7 sections):
+- Resource Naming Conventions, Tagging Requirements, Authentication & Authorization, Secrets Management, Network Security, Encryption, Compliance Frameworks
 
-## Completion Criteria
+#### guardrails.md
 
-1. All applicable playbook files are generated in ${output-path}
-2. Content is properly categorized into the correct files
-3. Return success message listing all generated files
+Use the template [guardrails-template](guardrails-template.md) for the required structure (3 sections):
+- Prohibited Technologies, Prohibited Patterns, Required Elements
+
+For each file: if it already exists, merge new content; if not, create it fresh.
+
+### Step 3: Validate
+
+Verify the output before finishing:
+- [ ] All three files exist in ${output-path}
+- [ ] targets.md has all 5 required sections
+- [ ] standards.md has all 7 required sections
+- [ ] guardrails.md has all 3 required sections
+- [ ] Every decision in the source document is reflected in at least one output file
+- [ ] No content was invented beyond what the source provides
+
+### Step 4: Present Summary
+
+Report to the user:
+- Number of target technologies defined
+- Number of migration decisions captured
+- Number of prohibited technologies/patterns
+- Number of required elements
+- Sections left empty (no corresponding source content) — flag these as gaps for architect review

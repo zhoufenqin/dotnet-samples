@@ -1,0 +1,19 @@
+{
+  "reportConfigHash": "dd3a3414",
+  "createdAtUtc": "2026-04-08T03:25:30.0421927Z",
+  "entries": [
+    {
+      "packageName": "System.Numerics.Vectors",
+      "packageVersion": "1.1.5-beta",
+      "insightsName": "System.Numerics.Vectors",
+      "insightsCurrentVersion": "1.1.5-beta",
+      "insightsNewVersion": "",
+      "insightsDescription": "NuGet package functionality is included with framework reference",
+      "insightsIsCompatible": true,
+      "insightsProjects": [
+        "Mandelbrot\\Mandelbrot.csproj",
+        "RayTracer\\RayTracer.csproj"
+      ]
+    }
+  ]
+}
