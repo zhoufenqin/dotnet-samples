@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Microsoft.Diagnostics.Tracing;
+using System.Diagnostics.Tracing;
 using System.Globalization;
 using System.Threading;
 
@@ -90,33 +90,23 @@ namespace EventSourceSamples
             Out.WriteLine("******************** LocalizedEventSource Demo ********************");
             Out.WriteLine("This app that messages can be localized to particular cultures");
             Out.WriteLine("Normally a process has only a single culture that is shared machine wide");
-            Out.WriteLine("However in this demo we create an AppDomain and give it a different culture");
-            Out.WriteLine("The messages that are logged will attempt to use the AppDomain's culture.");
+            Out.WriteLine("However in this demo we change the thread culture to simulate different locales.");
+            Out.WriteLine("The messages that are logged will attempt to use the thread's culture.");
             Out.WriteLine("Here we use English, French and Romanian.   However we don't resource");
             Out.WriteLine("data for Romanian so it falls back to English.");
             Out.WriteLine("");
 
             foreach (var cultureName in new string[] { "en-US", "fr-FR", "ro-RO" })
             {
-                // use the app domain name as a cheap way of passing an argument:
-                // the culture name to use on the thread.
-                var workerDomainFriendlyName = "workerDom_" + cultureName;
-
-                // create the new domain
-                var workerDom = AppDomain.CreateDomain(workerDomainFriendlyName);
-
-                // run the request processing code
-                workerDom.DoCallBack(RunWorker);
+                RunWorkerWithCulture(cultureName);
             }
 
             Out.WriteLine();
         }
 
-        private static void RunWorker()
+        private static void RunWorkerWithCulture(string cultureName)
         {
-            // set current culture based on appDomain's friendly name
-            var adCultureName = AppDomain.CurrentDomain.FriendlyName.Substring("workerDom_".Length);
-            var culture = new CultureInfo(adCultureName);
+            var culture = new CultureInfo(cultureName);
             var savedUICulture = Thread.CurrentThread.CurrentUICulture;
             var savedCulture = Thread.CurrentThread.CurrentCulture;
             Thread.CurrentThread.CurrentUICulture = culture;

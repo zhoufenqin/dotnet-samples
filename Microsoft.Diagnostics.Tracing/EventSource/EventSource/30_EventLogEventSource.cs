@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Microsoft.Diagnostics.Tracing;
+using System.Diagnostics.Tracing;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading;

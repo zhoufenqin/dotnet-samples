@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using Microsoft.Diagnostics.Tracing;
+using System.Diagnostics.Tracing;
 
 namespace EventSourceSamples
 {

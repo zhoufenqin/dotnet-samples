@@ -6,3 +6,4 @@ obj
 msbuild.log
 packages
 .vs
+.nuget/nuget.exe

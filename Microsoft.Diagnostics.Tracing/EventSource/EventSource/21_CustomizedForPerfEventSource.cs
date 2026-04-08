@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.Diagnostics.Tracing;
+using System.Diagnostics.Tracing;
 
 namespace EventSourceSamples
 {
