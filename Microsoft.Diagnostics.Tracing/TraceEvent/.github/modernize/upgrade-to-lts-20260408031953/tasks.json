@@ -17,7 +17,15 @@
         "passUnitTests": "false",
         "passIntegrationTests": "false"
       },
-      "status": "pending"
+      "status": "success",
+      "taskSummary": "Converted TraceEvent.csproj from legacy non-SDK format to SDK-style format. Removed packages.config and inlined all package references as PackageReference items. Added GenerateAssemblyInfo=false to preserve existing AssemblyInfo.cs. TargetFramework remains net45.",
+      "successCriteriaStatus": {
+        "passBuild": "skipped-windows-only-target",
+        "generateNewUnitTests": "notRequired",
+        "generateNewIntegrationTests": "notRequired",
+        "passUnitTests": "notRequired",
+        "passIntegrationTests": "notRequired"
+      }
     },
     {
       "type": "upgrade",
@@ -34,7 +42,7 @@
         "passUnitTests": "false",
         "passIntegrationTests": "false"
       },
-      "status": "pending"
+      "status": "started"
     }
   ],
   "metadata": {
