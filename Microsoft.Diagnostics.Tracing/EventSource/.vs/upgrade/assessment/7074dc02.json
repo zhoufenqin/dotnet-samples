@@ -1,0 +1,40 @@
+{
+  "reportConfigHash": "7074dc02",
+  "createdAtUtc": "2026-04-08T03:17:19.0850512Z",
+  "entries": [
+    {
+      "packageName": "Microsoft.Diagnostics.Tracing.EventRegister",
+      "packageVersion": "1.0.26",
+      "insightsName": "Microsoft.Diagnostics.Tracing.EventRegister",
+      "insightsCurrentVersion": "1.0.26",
+      "insightsNewVersion": "",
+      "insightsDescription": "",
+      "insightsIsCompatible": true,
+      "insightsProjects": []
+    },
+    {
+      "packageName": "Microsoft.Diagnostics.Tracing.EventSource",
+      "packageVersion": "1.0.26",
+      "insightsName": "Microsoft.Diagnostics.Tracing.EventSource",
+      "insightsCurrentVersion": "1.0.26",
+      "insightsNewVersion": "1.0.24",
+      "insightsDescription": "NuGet package is incompatible",
+      "insightsIsCompatible": false,
+      "insightsProjects": [
+        "EventSource\\EventSource.csproj"
+      ]
+    },
+    {
+      "packageName": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
+      "packageVersion": "1.0.26",
+      "insightsName": "Microsoft.Diagnostics.Tracing.EventSource.Redist",
+      "insightsCurrentVersion": "1.0.26",
+      "insightsNewVersion": "",
+      "insightsDescription": "NuGet package functionality is included with framework reference",
+      "insightsIsCompatible": true,
+      "insightsProjects": [
+        "EventSource\\EventSource.csproj"
+      ]
+    }
+  ]
+}
