@@ -1,0 +1,69 @@
+{
+  "$schema": "tasks-schema.json",
+  "description": ".NET version upgrade plan from .NET Framework 4.7 to .NET 10.0 LTS (net10.0-windows) for PerMonitorDemo WinForms application",
+  "tasks": [
+    {
+      "type": "upgrade",
+      "id": "001-upgrade-sdk-style-conversion",
+      "description": "Convert PerMonitorDemo.csproj to SDK-style project format",
+      "reason": "Modern .NET (5+) requires SDK-style project files. The current PerMonitorDemo.csproj uses the legacy non-SDK MSBuild format (Project.0001). This is a prerequisite before changing the target framework.",
+      "requirements": "Convert WinForms-HDPI/PerMonitorAware/PerMonitorDemo.csproj from legacy non-SDK-style to modern SDK-style format. Do NOT change the target framework during this step — keep net47. Remove packages.config if present and migrate any package references to <PackageReference> elements in the csproj. Verify the project builds successfully after conversion with: dotnet build WinForms-HDPI\\PerMonitorAware\\PerMonitorDemo.sln",
+      "environmentConfiguration": null,
+      "skills": [
+        {
+          "name": "sdk-style-conversion",
+          "location": "builtin"
+        }
+      ],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "false",
+        "passIntegrationTests": "false"
+      },
+      "status": "pending"
+    },
+    {
+      "type": "upgrade",
+      "id": "002-upgrade-target-framework-and-packages",
+      "description": "Update TargetFramework to net10.0-windows and add required NuGet packages",
+      "reason": "The project must target net10.0-windows (Project.0002). The -windows suffix is required for WinForms. System.Configuration.ApplicationSettingsBase (used in Properties\\Settings.Designer.cs) and System.Drawing types (used in Properties\\Resources.Designer.cs, SimpleLayout.Designer.cs, CustomDrawing.Designer.cs, ScaleButtonImages.Designer.cs) need corresponding NuGet packages since they are no longer inbox on modern .NET.",
+      "requirements": "In WinForms-HDPI/PerMonitorAware/PerMonitorDemo.csproj: (1) Change <TargetFramework>net47</TargetFramework> to <TargetFramework>net10.0-windows</TargetFramework>. (2) Ensure <UseWindowsForms>true</UseWindowsForms> is set. (3) Add NuGet package System.Configuration.ConfigurationManager at latest stable version compatible with net10.0 (e.g., 9.0.x or 10.0.x) for ApplicationSettingsBase used in Properties\\Settings.Designer.cs. (4) Add NuGet package System.Drawing.Common at latest stable version compatible with net10.0 (e.g., 9.0.x or 10.0.x) for System.Drawing.Icon, System.Drawing.Font, System.Drawing.GraphicsUnit, System.Drawing.FontStyle used across designer files. Build will not fully succeed yet due to source incompatible APIs addressed in task 003.",
+      "environmentConfiguration": null,
+      "skills": [],
+      "successCriteria": {
+        "passBuild": "false",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "false",
+        "passIntegrationTests": "false"
+      },
+      "status": "pending"
+    },
+    {
+      "type": "upgrade",
+      "id": "003-fix-source-incompatible-apis",
+      "description": "Fix source-incompatible API usages (Api.0002) across 7 source files",
+      "reason": "69 source-incompatible API usages must be resolved for the project to compile against net10.0-windows. Key issue: Application.SetCompatibleTextRenderingDefault was removed in .NET 6+. GDI+ and System.Configuration types flagged as Api.0002 should resolve after adding NuGet packages in task 002; remaining issues need manual fixes.",
+      "requirements": "Fix source-incompatible API usages in the following files: (1) Program.cs line 14: Remove the call to Application.SetCompatibleTextRenderingDefault(false) — this method was removed in .NET 6+; it is safe to remove. Keep Application.EnableVisualStyles() and Application.Run(new MainForm()). (2) Properties\\Settings.Designer.cs: Verify ApplicationSettingsBase compiles after System.Configuration.ConfigurationManager package is added; no code change expected. (3) Properties\\Resources.Designer.cs: Verify System.Drawing.Icon compiles after System.Drawing.Common package is added; no code change expected. (4) SimpleLayout.Designer.cs: Verify System.Drawing.Font, FontStyle, GraphicsUnit compile after System.Drawing.Common; no code changes expected for the Font constructor with byte charset parameter. (5) MainForm.cs: Review any remaining Api.0002 issues and resolve; most should be resolved by System.Drawing.Common package. (6) CustomDrawing.cs: Verify all GDI+ drawing calls compile with System.Drawing.Common; check for any moved or renamed APIs. (7) ScaleButtonImages.cs: Verify GDI+ calls compile with System.Drawing.Common. After fixes, run: dotnet build WinForms-HDPI\\PerMonitorAware\\PerMonitorDemo.sln — expect 0 errors.",
+      "environmentConfiguration": null,
+      "skills": [],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "false",
+        "passIntegrationTests": "false"
+      },
+      "status": "pending"
+    }
+  ],
+  "metadata": {
+    "planName": "upgrade-to-lts",
+    "projectName": "PerMonitorDemo",
+    "language": "dotnet",
+    "createdAt": "2026-04-08T03:36:47.165Z",
+    "version": "1.0"
+  }
+}
