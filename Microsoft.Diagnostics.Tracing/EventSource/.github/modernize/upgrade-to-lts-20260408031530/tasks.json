@@ -1,0 +1,47 @@
+{
+  "$schema": "tasks-schema.json",
+  "description": ".NET version upgrade plan from .NET Framework 4.5 (net45) to .NET 10.0 (net10.0)",
+  "tasks": [
+    {
+      "type": "upgrade",
+      "id": "001-upgrade-sdk-style-conversion",
+      "description": "Convert EventSource\\EventSource.csproj from legacy format to SDK-style project",
+      "reason": "The project uses legacy non-SDK-style .csproj format which is not compatible with modern .NET. SDK-style format is required before the target framework can be changed to net10.0.",
+      "requirements": "Convert legacy non-SDK-style EventSource\\EventSource.csproj to modern SDK-style format. Do NOT change target framework during this step. Remove packages.config if present. Verify project still builds after conversion.",
+      "environmentConfiguration": null,
+      "skills": [{ "name": "sdk-style-conversion", "location": "builtin" }],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "true",
+        "passIntegrationTests": "false"
+      },
+      "status": "pending"
+    },
+    {
+      "type": "upgrade",
+      "id": "002-upgrade-target-framework-and-packages",
+      "description": "Upgrade EventSource\\EventSource.csproj from net45 to net10.0 and update NuGet packages",
+      "reason": "The project targets .NET Framework 4.5 (net45) and must be upgraded to .NET 10.0 LTS (net10.0). Two NuGet packages are incompatible or have functionality built into the .NET runtime and must be removed. Source code must be updated to use built-in System.Diagnostics.Tracing namespace.",
+      "requirements": "1. Change TargetFramework in EventSource\\EventSource.csproj from net45 to net10.0. 2. Remove Microsoft.Diagnostics.Tracing.EventSource (1.0.26) — incompatible with net10.0, functionality is now in .NET runtime. 3. Remove Microsoft.Diagnostics.Tracing.EventSource.Redist (1.0.26) — functionality included with .NET framework reference. 4. Keep Microsoft.Diagnostics.Tracing.EventRegister (1.0.26) — compatible. 5. Update source code in all 12 files: replace Microsoft.Diagnostics.Tracing namespace references with System.Diagnostics.Tracing where appropriate. 6. Run dotnet restore and dotnet build on EventSource.sln, fix all compilation errors in a single pass. 7. Run dotnet test to validate correctness.",
+      "environmentConfiguration": null,
+      "skills": [],
+      "successCriteria": {
+        "passBuild": "true",
+        "generateNewUnitTests": "false",
+        "generateNewIntegrationTests": "false",
+        "passUnitTests": "true",
+        "passIntegrationTests": "false"
+      },
+      "status": "pending"
+    }
+  ],
+  "metadata": {
+    "planName": "upgrade-to-lts",
+    "projectName": "EventSource",
+    "language": "dotnet",
+    "createdAt": "2026-04-08T03:15:38.319Z",
+    "version": "1.0"
+  }
+}
