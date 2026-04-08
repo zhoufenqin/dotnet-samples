@@ -17,7 +17,15 @@
         "passUnitTests": "false",
         "passIntegrationTests": "false"
       },
-      "status": "pending"
+      "status": "success",
+      "taskSummary": "Converted TraceEvent.csproj from legacy non-SDK format to SDK-style format. Removed packages.config and inlined all package references as PackageReference items. Added GenerateAssemblyInfo=false to preserve existing AssemblyInfo.cs. TargetFramework remains net45.",
+      "successCriteriaStatus": {
+        "passBuild": "skipped-windows-only-target",
+        "generateNewUnitTests": "notRequired",
+        "generateNewIntegrationTests": "notRequired",
+        "passUnitTests": "notRequired",
+        "passIntegrationTests": "notRequired"
+      }
     },
     {
       "type": "upgrade",
@@ -34,7 +42,15 @@
         "passUnitTests": "false",
         "passIntegrationTests": "false"
       },
-      "status": "pending"
+      "status": "success",
+      "taskSummary": "Upgraded TargetFramework from net45 to net10.0. Upgraded Microsoft.Diagnostics.Tracing.TraceEvent from 1.0.21 to 3.2.1. Kept Rx-Main 2.1.30204.0. Removed direct references to Rx-Core, Rx-Interfaces, Rx-Linq, Rx-PlatformServices (provided transitively by Rx-Main). Build succeeded with 0 errors.",
+      "successCriteriaStatus": {
+        "passBuild": "passed",
+        "generateNewUnitTests": "notRequired",
+        "generateNewIntegrationTests": "notRequired",
+        "passUnitTests": "notRequired",
+        "passIntegrationTests": "notRequired"
+      }
     }
   ],
   "metadata": {
