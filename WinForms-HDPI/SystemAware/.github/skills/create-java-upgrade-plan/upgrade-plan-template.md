@@ -23,9 +23,7 @@
       "successCriteria": {
         "passBuild": "true",
         "generateNewUnitTests": "false",
-        "generateNewIntegrationTests": "false",
-        "passUnitTests": "true",
-        "passIntegrationTests": "false"
+        "passUnitTests": "true"
       },
       "status": "pending"
     }
