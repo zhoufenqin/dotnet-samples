@@ -1,4 +1,5 @@
 ﻿using PerMonitorDemo.Properties;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System;
@@ -23,6 +24,7 @@ namespace PerMonitorDemo
         }
 
         private Icon originalIcon;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Icon OriginalIcon 
         {
             private get 
