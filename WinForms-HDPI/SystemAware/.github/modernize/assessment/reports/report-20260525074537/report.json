@@ -1,0 +1,62 @@
+{
+  "settings": {
+    "components": {
+      "code": false,
+      "binaries": true
+    },
+    "targetId": "Any",
+    "visuals": {
+      "elements": [
+        {
+          "id": "ReportEntries",
+          "displayName": "Folders"
+        },
+        {
+          "id": "ReportEntry",
+          "displayName": "Folder"
+        },
+        {
+          "id": "SummaryReportEntries",
+          "displayName": "folders"
+        }
+      ],
+      "pages": {
+        "projects": {
+          "name": "Folders",
+          "title": "Folders"
+        }
+      }
+    }
+  },
+  "analysisStartTime": "2026-05-25T07:45:37.7938377Z",
+  "analysisEndTime": "2026-05-25T07:45:37.9409185Z",
+  "privacyMode": "Restricted",
+  "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2271074",
+  "stats": {
+    "summary": {
+      "projects": 1,
+      "issues": 0,
+      "incidents": 0,
+      "effort": 0
+    },
+    "charts": {
+      "severity": {
+        "Mandatory": 0,
+        "Optional": 0,
+        "Potential": 0,
+        "Information": 0
+      },
+      "category": {}
+    }
+  },
+  "projects": [
+    {
+      "path": "WinForms-HDPI/SystemAware",
+      "startingProject": true,
+      "issues": 0,
+      "storyPoints": 0,
+      "ruleInstances": []
+    }
+  ],
+  "rules": {}
+}
